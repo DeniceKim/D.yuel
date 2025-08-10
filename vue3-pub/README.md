@@ -15,6 +15,18 @@ rmdir /s /q node_modules
 # vite 캐시 삭제
 rmdir /s /q node_modules\.vite
 
+# S : Mac ==========================
+dist 폴더 삭제
+rm -rf dist
+
+package-lock.json 파일 삭제
+rm -f package-lock.json
+
+node_modules 폴더 삭제
+rm -rf node_modules
+
+# E : Mac ==========================
+
 # npm 캐시 삭제
 npm cache clean --force
 
