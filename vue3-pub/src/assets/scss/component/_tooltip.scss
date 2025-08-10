@@ -1,0 +1,41 @@
+@use './../common/variable' as vars;
+@use './../common/mixin' as mixin;
+@use 'sass:map';
+@use 'sass:color';
+@use 'sass:list';
+
+// Tag
+.c-tooltip{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  position:absolute;z-index:1;
+  min-width: 3rem;
+  margin:0;
+  padding:0.25rem;
+  border-radius:0.75rem;
+  border:0;
+  background-color: var(--deepgray);
+  color:var(--white);
+  font-size:0.75rem;
+  font-family: vars.$font-family;
+  font-weight:vars.$regular;
+  opacity:1;
+  > .text{
+    white-space: nowrap;
+  }
+  // tip 위치
+  // @include mixin.tooltip(5px, bottom, var(--deepgray));
+  &.top {
+    @include mixin.tooltip(5px, top, var(--deepgray));
+  }
+  &.bottom {
+    @include mixin.tooltip(5px, bottom, var(--deepgray));
+  }
+  &.right {
+    @include mixin.tooltip(5px, right, var(--deepgray));
+  }
+  &.left {
+    @include mixin.tooltip(5px, left, var(--deepgray));
+  }
+}

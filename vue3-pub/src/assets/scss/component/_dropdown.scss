@@ -1,0 +1,109 @@
+@use './../common/variable' as vars;
+@use './../common/mixin' as mixin;
+@use 'sass:map';
+@use 'sass:color';
+@use 'sass:list';
+
+// Drodwon
+.c-dropdown {
+  --c-dropdown-transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  --c-dropdown-arrow-zindex: 10;
+  --c-tooltip-arrow-size: 12px;
+
+  position: relative;
+  display: inline-block;
+  &:has(.c-dropdown-btn.top ~ .c-tooltip-arrow, .c-dropdown-btn.top ~ .c-dropdown-panel){
+    .c-tooltip-arrow {
+      border-top-color: transparent;
+      border-left-color: transparent;
+      border-bottom-color: var(--lightgray);
+      border-right-color: var(--lightgray);
+    }
+    .c-dropdown-panel {
+      padding: 8px 8px 12px 8px;
+    }
+  }
+  &:has(.c-dropdown-btn.left ~ .c-tooltip-arrow, .c-dropdown-btn.left ~ .c-dropdown-panel){
+    .c-tooltip-arrow {
+      border-top-color: var(--lightgray);
+      border-left-color: transparent;
+      border-bottom-color: transparent;
+      border-right-color: var(--lightgray);
+    }
+    .c-dropdown-panel {
+      padding: 12px 8px 8px 8px;
+    }
+  }
+  &:has(.c-dropdown-btn.right ~ .c-tooltip-arrow, .c-dropdown-btn.right ~ .c-dropdown-panel){
+    .c-tooltip-arrow {
+      border-top-color: transparent;
+      border-left-color: var(--lightgray);
+      border-bottom-color: var(--lightgray);
+      border-right-color: transparent;
+    }
+    .c-dropdown-panel {
+      padding: 12px 8px 8px 8px;
+    }
+  }
+}
+.c-dropdown-btn{
+  padding: 5px;
+  border: 1px solid var(--lightgray);
+  &:has(.icon){
+    padding:0;
+    border:0;
+  }
+}
+.c-dropdown-close-btn{
+  --c-dropdown-close-icon-size: 12px;
+  position:absolute;
+  top:0;
+  right:0;
+  width: 20px;
+  height: 20px;
+  mask-size: var(--c-dropdown-close-icon-size);
+  mask-repeat: no-repeat;
+  mask-position: 50% 50%;
+  background-size: var(--c-dropdown-close-icon-size);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-color: var(--black);
+}
+
+/* 툴팁 화살표 */
+.c-tooltip-arrow {
+  position: absolute;
+  top: var(--tooltip-top, 50%);
+  left: var(--tooltip-left, 50%);
+  z-index: calc(var(--c-dropdown-arrow-zindex) + 1);
+  transform: translate(-50%, -50%) rotate(45deg);
+  width: var(--c-tooltip-arrow-size);
+  height: var(--c-tooltip-arrow-size);
+  // margin-top: calc((var(--c-tooltip-arrow-size) / 2) + 1px);
+  border: 1px solid transparent;
+  border-top-color: var(--lightgray);
+  border-left-color: var(--lightgray);
+  background: white;
+}
+/* 드롭다운 패널 */
+.c-dropdown-panel {
+  position: absolute;
+  top: var(--dropdown-top, auto);
+  left: var(--dropdown-left, auto);
+  z-index: var(--c-dropdown-arrow-zindex);
+  // margin-top: calc(var(--c-tooltip-arrow-size) / 2);
+  padding: 12px 8px 8px 8px;
+  padding-right: 16px;
+  border-radius: 4px;
+  border: 1px solid var(--lightgray);
+  background: var(--white);
+  font-size: var(--num-13);
+}
+.c-dropdown-menu{
+  min-width:150px;
+  text-align: left;
+}
+.c-dropdown-in{
+  min-width:200px;
+  padding: 0;
+}

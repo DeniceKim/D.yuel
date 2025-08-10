@@ -1,0 +1,109 @@
+@use './../common/variable' as vars;
+@use './../common/mixin' as mixin;
+@use 'sass:map';
+@use 'sass:color';
+@use 'sass:list';
+
+// Floating
+.c-floating{
+  --c-floating-bezier: cubic-bezier(.4, 0, .2, 1);
+
+  display:block;
+  position:fixed;
+  bottom: 1rem;
+  right: 1rem;
+  transition: opacity .3s ease;
+
+  .c-dim ~ .c-floating-inner{
+    z-index: 102;
+  }
+  .c-floating-inner{
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    position: relative;
+    z-index:100;
+  }
+  .floating-btn{
+    @include mixin.rippleEffectWhite;
+    overflow:hidden;
+    display:inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position:relative;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    border:1px solid var(--lightgray);
+    background-color: var(--white);
+    box-shadow:0px 6px 6px rgba(0, 0, 0, 0.102);
+
+    ~ .floating-btn,
+    ~ .floating-info{
+      margin-bottom: 5px;
+    }
+    .text{
+      font-size: var(--num-12);
+    }
+    .text-info{
+      @include mixin.textClip;
+      display: none;
+      font-size: var(--num-13);
+      text-align: left;
+    }
+    &.is-active{
+      .icon{
+        transform:rotate(180deg);
+        transition: transform .3s ease;
+      }
+    }
+    &.top{
+    }
+    &.more{
+      .icon{
+        transition: transform .3s ease;
+      }
+    }
+    &.wauto{
+      &.is-active{
+        flex-direction: row-reverse;
+        width: 12.5rem;
+        border-radius: 3rem;
+        transition: width .1s ease-in;
+        .text{
+          flex: 0;
+          display:inline-block;
+          width: 3rem;
+        }
+        .text-info{
+          flex:1;
+          display: inline-block;
+          max-width: calc((100% - 4rem) + 1rem);
+        }
+      }
+    }
+  }
+  .floating-info {
+    visibility: hidden;
+    position: relative;
+    z-index: -1;
+    height: 0;
+    text-align: right;
+    &.is-show{
+      visibility: visible;
+      z-index: 0;
+      height: auto;
+    }
+  }
+  .floating-list{
+    display:flex;
+    flex-direction: column-reverse;
+    height:inherit;
+    li{
+      ~ li{
+        margin-bottom: 5px;
+      }
+    }
+  }
+}

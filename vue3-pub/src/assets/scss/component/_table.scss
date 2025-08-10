@@ -1,0 +1,95 @@
+@use './../common/variable' as vars;
+@use './../common/mixin' as mixin;
+@use 'sass:map';
+@use 'sass:color';
+@use 'sass:list';
+
+// Custom Table
+/* 
+  기본 테이블은 reset에서 정의
+*/
+.c-table{
+  display: table;
+  position: relative;
+  width:100%;
+  margin: 0;
+  padding: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
+  table-layout: fixed;
+  .c-thead{
+    display: table-header-group;
+  }
+  .c-tbody{
+    display: table-row-group;
+    vertical-align: middle;
+  }
+  .c-tr{
+    display: table-row;
+  }
+  .c-th,
+  .c-td {
+    display: table-cell;
+    padding: 4px 2px;
+    border: 1px solid var(--silver);
+    color: var(--black);
+    text-align: center;
+    vertical-align: middle;
+  }
+  .c-th {
+    background-color: var(--bg-gray);
+    font-size: var(--num-13);
+    font-weight: vars.$semibold;
+  }
+  .c-td {
+    background-color: var(--white);
+    font-size: var(--num-14);
+    font-weight: vars.$regular;
+  }
+  .c-thead{
+    
+  }
+  .c-tbody{
+
+  }
+  .c-tr{
+
+  }
+}
+
+.ex_table{
+  th, td{ 
+    padding: 0.5rem;
+    background-color: var(--white); 
+    font-size: var(--num-13);
+  }
+  tbody{
+    th{ text-align: left; }
+    td{ text-align: right; }
+    th,td{ font-weight: vars.$regular; }
+  }
+  .result{
+    th, td{ background-color: var(--bg-gray); }
+  }
+}
+
+.terms_table{
+  th, td{ 
+    padding: 0.5rem 0.25rem;
+    background-color: transparent; 
+    font-size: var(--num-14);
+  color: var(--dimgray);
+  }
+  tbody{
+    th{
+      font-weight: vars.$bold; 
+    }
+    td{ 
+      text-align: left;
+      font-weight: vars.$regular;
+      color: var(--dimgray); 
+      .ex-help{ color: var(--error); }
+      u{ font-weight: vars.$bold; }
+    }
+  }
+}

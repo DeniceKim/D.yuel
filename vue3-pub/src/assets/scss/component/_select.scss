@@ -1,0 +1,202 @@
+@use './../common/variable' as vars;
+@use './../common/mixin' as mixin;
+@use 'sass:map';
+@use 'sass:color';
+@use 'sass:list';
+
+// Select
+.c-seltype {
+  --csel-bezier: cubic-bezier(.4, 0, .2, 1);
+  --csel-height: 30px;
+  --csel-height-xl: 34px;
+  --csel-height-xxl: 40px;
+  --csel-padding: 5px;
+  --csel-padding-x: var(--csel-height);
+  --csel-border-color: var(--lightgray);
+  --csel-color: var(--black);
+  --csel-font-size: .875rem;
+  --csel-label-weight: 400;
+  --csel-optgroup-dim: rgba(0,0,0, .5);
+
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+
+  .c-label {
+    flex: 0 0 auto; /* 고정 크기 */
+    font-weight: var(--csel-label-weight);
+    margin-right: var(--space);
+    @include mixin.textClip;
+  }
+  &.btmline{
+    .c-sel,
+    .c-selbtn{
+      border-radius:0;
+      border:0;
+      border-bottom:2px solid var(--black);
+    }
+  }
+  &.wauto{
+    width:auto;
+  }
+  &.xl{
+    .c-sel,
+    .c-selbtn{
+      min-height: var(--csel-height-xl);
+    }
+  }
+  &.xxl{
+    .c-sel,
+    .c-selbtn{
+      min-height: var(--csel-height-xxl);
+    }
+  }
+}
+.c-sel{
+  display: flex;
+  align-items: center;
+  flex:1 auto;
+  width: auto;
+  min-width: 0;
+  height: auto;
+  min-height: var(--csel-height);
+  padding: 0 var(--csel-padding-x) 0 var(--csel-padding);
+  border-radius: 0;
+  border:1px solid var(--csel-border-color);
+  background-color: var(--white);
+  font-size: var(--csel-font-size);
+  color:var(--csel-color);
+}
+
+// Custom select group
+.c-selgroup {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  min-width: 0; /* 말줄임 처리를 위해 필요 */
+}
+
+// Custom select button
+.c-selbtn {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  position: relative;
+  min-width: 0;
+  height: var(--csel-height);
+  padding: 0 var(--csel-padding-x) 0 var(--csel-padding);
+  border-radius: 0;
+  border: 1px solid var(--csel-border-color);
+  font-size: var(--csel-font-size);
+  color: var(--csel-color);
+  text-align: left;
+  span {
+    display: inline-block;
+    flex-grow: 1;
+    @include mixin.textClip;
+  }
+  &::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: calc(var(--csel-height) - 2px);
+    height: calc(var(--csel-height) - 2px);
+  }
+}
+
+// Start : Custom select option group
+.c-optgroup {
+  --optgroup-transition: max-width 0.3s ease, max-height 0.3s ease, transform 0.3s ease-out, opacity 0.3s ease;
+  overflow: hidden;
+  visibility: hidden;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;right:0;
+  bottom:0;left: 0;
+  z-index: -1;
+  width: 0;
+  height:0;
+  margin:auto;
+  background-color: transparent;
+  // ul
+  .c-optlist {
+    overflow-x: hidden;
+    overflow-y: auto;
+    position:relative;
+    z-index:101;
+    width: auto;
+    min-width: 0;
+    min-height: 0;
+    max-width: 0;
+    max-height: 0;
+    margin: 0;
+    border-radius: 5px;
+    padding: 1rem 0;
+    background-color: rgb(var(--white-rgb));
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(50%);
+    opacity: 0;
+    transition: var(--optgroup-transition);
+  
+    // li
+    .c-optitem {
+      width: 100%;
+      margin: 0;
+      padding: 0 20px;
+      ~ .c-optitem {
+        border-top: 1px solid var(--lightgray);
+      }
+    }
+    .c-radiotype {
+      width:100%;
+      padding: 8px 0;
+      .c-label{
+        width:100%;
+        cursor:pointer;
+      }
+    }
+  }
+  // 위치
+  &.bottom{
+    top:auto;right:auto;
+    width:100%;
+    align-items: flex-end;
+    margin:0;
+    .c-optlist {
+      width: 100%;
+      min-width: 100%;
+      max-width: 100%;
+      border-radius: 8px 8px 0 0;
+      box-shadow: none;
+      transform: translateY(100%);
+    }
+  }
+  &.is-show {
+    display: flex;
+    visibility: visible;
+    width: 100%;
+    height: 100%;
+    z-index: 101;
+    .c-optlist {
+      min-width: 17.5rem;
+      max-width: calc(100% - 2rem);
+      max-height: calc(100% - 2rem);
+      transform: translateY(0);
+      opacity: 1;
+      transition: var(--optgroup-transition);
+    }
+    &.bottom{
+      .c-optlist {
+        min-width: 100%;
+        max-width: 100%;
+        transform: translateY(0);
+      }
+    }
+  }
+}
+/* End : Custom select option group */

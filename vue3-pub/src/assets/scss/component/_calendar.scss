@@ -1,0 +1,162 @@
+@use './../common/variable' as vars;
+@use './../common/mixin' as mixin;
+@use 'sass:map';
+@use 'sass:color';
+@use 'sass:list';
+
+// Calendar
+.c-calendar{
+  --c-cal-bezier: cubic-bezier(.4, 0, .2, 1);
+  --c-cal-border-color: rgba(239, 239, 245, 1);
+  --c-cal-border-color-modal: rgba(239, 239, 245, 1);
+  --c-cal-border-color-popover: rgba(239, 239, 245, 1);
+  --c-cal-border-radius: 3px;
+  --c-cal-text-color: rgb(51, 54, 57);
+  --c-cal-title-font-weight: 500;
+  --c-cal-title-font-size: 22px;
+  --c-cal-title-text-color: rgb(31, 34, 37);
+  --c-cal-day-text-color: rgba(194, 194, 194, 1);
+  --c-cal-font-size: 14px;
+  --c-cal-line-height: 1.6;
+  --c-cal-date-color-current: rgb(var(--primary));
+  --c-cal-date-text-color-current: #FFF;
+  --c-cal-cell-color: #fff;
+  --c-cal-cell-color-modal: #fff;
+  --c-cal-cell-color-popover: #fff;
+  --c-cal-cell-color-hover: rgba(243, 243, 245, 1);
+  --c-cal-cell-color-hover-modal: rgba(243, 243, 245, 1);
+  --c-cal-cell-color-hover-popover: rgba(243, 243, 245, 1);
+  --c-cal-bar-color: rgb(var(--primary));
+
+  display: flex;
+  flex-direction: column;
+  width:100%;
+  height: auto;
+  line-height: var(--c-cal-line-height);
+  font-size: var(--c-cal-font-size);
+  color: var(--c-cal-text-color);
+}
+.c-calendar-headers{
+  display:flex;
+  align-items: center;
+  flex-wrap: wrap;
+  position:relative;
+  margin-bottom:20px;
+  font-size: var(--c-cal-title-font-size);
+}
+.c-calendar-title{
+  flex: 1 1 auto;
+}
+.c-calendar-nav{
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  font-size:12px;
+  .c-cal-group{
+    display:flex;
+    gap:4px;
+    align-items: center;
+  }
+  .prev-month-btn,
+  .next-month-btn,
+  .prev-week-btn,
+  .next-week-btn,
+  .today-btn{
+    width:28px;
+    height:28px;
+    border-radius: 5px;
+    border:1px solid var(--silver);
+    box-shadow: 0 1px 1px rgba(0,0,0,.2);
+  }
+  .prev-month-btn,
+  .next-month-btn,
+  .prev-week-btn,
+  .next-week-btn,
+  .today-btn{
+    display:inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+.c-calendar-head{
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  padding: .5rem 0;
+  font-size: .875rem;
+  line-height: 1;
+  text-align: center;
+}
+.c-calendar-body{
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  border-radius: var(--c-cal-border-radius);
+  flex: 1;
+  border-top: 1px solid;
+  border-left: 1px solid;
+  border-color: var(--c-cal-border-color);
+  transition: border-color .3s var(--c-cal-bezier);
+}
+// 날짜
+.c-cal{
+  &-sun{color:var(--red);}
+  &-mon{}
+  &-tue{}
+  &-wed{}
+  &-thu{}
+  &-fri{}
+  &-sat{color:var(--blue);}
+}
+.c-cal-day{
+  display:inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius:50%;
+  background-color:var(--white);
+}
+.prev-month,
+.next-month,
+.prev-week-btn,
+.next-week-btn{
+  opacity: .5;
+}
+.c-cal-cell {
+  position: relative;
+  padding: .25rem;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+  border-color: var(--c-cal-border-color);
+  transition: color .3s var(--c-cal-bezier), border-color .3s var(--c-cal-bezier), background-color .3s var(--c-cal-bezier);
+  font-size: .875rem;
+  &.is-holiday{
+    color:var(--red);
+  }
+  &.is-today{
+    .c-cal-day{
+      background-color:rgb(var(--primary));
+      color:var(--white);
+    }
+  }
+  &.is-disabled{
+    opacity: .5;
+  }
+  &.is-selected{
+    border-bottom:2px solid var(--orange);
+  }
+  &.is-task{
+    &::before{
+      content:"";
+      display: inline-block;
+      position:absolute;
+      top:0;
+      right:0;
+      z-index:1;
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      background-color:rgb(var(--primary));
+    }
+  }
+}

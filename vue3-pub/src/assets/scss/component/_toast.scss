@@ -1,0 +1,96 @@
+@use './../common/variable' as vars;
+@use './../common/mixin' as mixin;
+@use 'sass:map';
+@use 'sass:color';
+@use 'sass:list';
+
+// Toast
+.c-toast {
+  --c-toast-bezier: cubic-bezier(.4, 0, .2, 1);
+  --c-toast-offset: 20px;
+  --c-toast-offset-center: 50%;
+  --c-toast-height: 30px;
+  --c-toast-padding: 15px;
+  --c-toast-btn-size: 20px;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  left:0;
+  z-index: -1;
+  width: 100%;
+  height: 0;
+  padding:0 1rem;
+
+  .c-toast-inner{
+    display:inline-flex;
+    align-items: center;
+    height: var(--c-toast-height);
+    padding: 0 var(--c-toast-padding);
+    border-radius: var(--c-toast-height);
+    background-color: rgba(var(--black-rgb), .8);
+    color: var(--white);
+    font-size: var(--num-14);
+  }
+  .text{
+    display:inline-block;
+    white-space: nowrap;
+  }
+  .toast-btn{
+    width: var(--c-toast-btn-size);
+    height: var(--c-toast-btn-size);
+    margin: 0 -6px 0 4px;
+    background-repeat: no-repeat;
+    background-size: var(--c-toast-btn-size);
+    background-position: 50%;
+    background-color: var(--white);
+    mask-size: calc(var(--c-toast-btn-size)/1.5);
+  }
+
+  // 형태
+  &.outline{
+    border:1px solid rgb(var(--primary));
+    background-color: var(--white);
+  }
+
+  // 위치
+  &.top,
+  &.top-left,
+  &.top-right{
+    top: var(--c-toast-offset);
+    .c-toast-inner{
+      margin-top: var(--c-toast-offset);
+    }
+  }
+  &.top-left{
+    justify-content: flex-start;
+  }
+  &.top-right{
+    justify-content: flex-end;
+  }
+  &.bottom,
+  &.bottom-left,
+  &.bottom-right{
+    bottom: var(--c-toast-offset);
+    .c-toast-inner{
+      margin-bottom: var(--c-toast-offset);
+    }
+  }
+  &.bottom-left{
+    justify-content: flex-start;
+  }
+  &.bottom-right{
+    justify-content: flex-end;
+  }
+  &.center{
+    bottom: var(--c-toast-offset-center);
+    transform: translateY(-50%);
+    padding:0;
+  }
+  // 호출 활성화
+  &.is-show{
+    display: flex;
+    z-index: 1000;
+  }
+}

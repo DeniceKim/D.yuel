@@ -1,0 +1,303 @@
+@charset "UTF-8";
+@use "./_variable" as vars;
+@use "sass:map";
+@use "sass:color";
+@use "sass:list";
+
+// Mixin to apply colors based on theme
+@mixin applyThemeColors($color-set) {
+  --primary: #{list.nth($color-set, 1)}, #{list.nth($color-set, 2)}, #{list.nth($color-set, 3)};
+  --secondary: #{list.nth($color-set, 4)}, #{list.nth($color-set, 5)}, #{list.nth($color-set, 6)};
+  --tertiary: #{list.nth($color-set, 7)}, #{list.nth($color-set, 8)}, #{list.nth($color-set, 9)};
+}
+@mixin rootDefaultColor{
+  --primary:55, 105, 244; //#3769f4
+  --secondary:0, 159, 36; //#009F24
+  --tertiary:247, 155, 6; //#F79B06
+}
+@mixin rootDefault {
+  color-scheme: only light;
+  /* font */
+  --font-family:'Pretendard','Roboto','Noto Sans KR', -apple-system, BlinkMacSystemFont, 'droid sans fallback', "Apple SD Gothic Neo", AppleGothic, sans-serif, Dotum, Tahoma, Verdana, Arial;
+  // --font-size: 1em;
+  --font-size: 16px;
+  
+  /* 기본 Color */
+  @include applyThemeColors(map.get(vars.$themes, default));
+  --error-rgb-color: 235, 47, 0;
+  --success-rgb-color: 0, 159, 36;
+
+  /* 공통 Color */
+  --black: #000; //공통 검정
+  --black-rgb: 0,0,0; //공통 검정
+  --deepgray: #424242; //공통 회색
+  --deepgray-rgb: 66,66,66; //공통 회색
+  --dimgray: #696969; //공통 회색
+  --gray: #808080; //공통 회색
+  --silver: #C0C0C0; //공통 회색
+  --lightgray: #E1E1E1; //공통 회색
+  --white: #FFF; //공통 흰색
+  --white-rgb: 255,255,255; //공통 흰색
+  --red: #EB2F00; //공통 빨강
+  --green: #009f24; //공통 초록
+  --blue: #3769f4; //공통 파랑
+  // --orange: #FF6E00; //공통 노랑
+  --orange: #F16600; //공통 노랑
+
+  // --txt-yellow: #D6800E; //공통 텍스트 노랑
+  --txt-yellow: #CB7809; //공통 텍스트 노랑
+  
+  --bg-gray: #F7F7F7; //공통 BG 회색
+  --bg-yellow: #FFB900; //공통 BG 노랑
+  
+  --error: #EB2F00; //공통 에러
+  --success: #009F24; //공통 성공
+
+  --code-color: var(--white);
+
+  /* 사이즈 */
+  --num-04: .25rem;
+  --num-05: .3125rem;
+  --num-06: .325rem;
+  --num-08: .5rem;
+  --num-10: .625rem;
+  --num-12: .75rem;
+  --num-13: .8125rem;
+  --num-14: .875rem;
+  --num-16: 1rem;
+  --num-18: 1.125rem;
+  --num-20: 1.25rem;
+  --num-22: 1.375rem;
+  --num-24: 1.5rem;
+  --num-26: 1.625rem;
+  --num-28: 1.75rem;
+  --num-30: 1.875rem;
+  --num-32: 2rem;
+  --num-36: 2.25rem;
+  --num-40: 2.5rem;
+  --num-44: 2.75rem;
+  --num-46: 2.875rem;
+  --num-48: 3rem;
+  --num-52: 3.25rem;
+  --num-56: 3.5rem;
+  --num-64: 4rem;
+
+  /* 음수 */
+  --num-04m: -.25rem;
+  --num-05m: -.3125rem;
+  --num-06m: -.325rem;
+  --num-08m: -.5rem;
+  --num-10m: -.625rem;
+  --num-12m: -.75rem;
+  --num-13m: -.8125rem;
+  --num-14m: -.875rem;
+  --num-16m: -1rem;
+  --num-18m: -1.125rem;
+  --num-20m: -1.25rem;
+  --num-24m: -1.5rem;
+  --num-26m: -1.625rem;
+  --num-28m: -1.75rem;
+  --num-30m: -1.875rem;
+  --num-32m: -2rem;
+  --num-36m: -2.25rem;
+  --num-40m: -2.5rem;
+  --num-44m: -2.75rem;
+  --num-46m: -2.875rem;
+  --num-48m: -3rem;
+  --num-52m: -3.25rem;
+  --num-56m: -3.5rem;
+  --num-64m: -4rem;
+
+  --bg-header:var(--white);
+
+  --disabled-border-color:transparent!important;
+  --disabled-bg:var(--lightgray)!important;
+  --disabled-color:var(--gray)!important;
+  --readonly-border-color:transparent!important;
+  --readonly-bg:light-dark(rgb(232, 240, 254), rgba(70, 90, 126, 0.4)) !important;
+  --readonly-color:var(--black)!important;
+  --space:.25rem;
+}
+/* ================== Start : 병원별 Logo Size ========================= */
+@mixin logoSize($prefix) {
+  // 기본
+  @if $prefix == 'default' {
+    max-height: 1.1rem;
+  }
+}
+/* ================== End : 병원별 Logo Size ========================= */
+
+// @include mixin-position(absolute, $top: 10px, $left: 50%);
+@mixin position($position, $top: null, $right: null, $bottom: null, $left: null) {
+  position: $position;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+@mixin textClip {
+  overflow:hidden;white-space: nowrap;text-overflow: ellipsis;
+}
+// @include mixin-lineClamp($fontSize: 16, $lineNum: 2, $lineHeight: 1.5);
+@mixin lineClamp($fontSize: null, $lineNum: null, $lineHeight: null) {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: $lineNum;
+  -webkit-box-orient: vertical;
+  text-overflow:ellipsis;
+  max-height: ($fontSize * $lineHeight * $lineNum) + px;
+  font-size:$fontSize + px;
+  line-height:$lineHeight;
+}
+@mixin fontSize($size) {
+  @if $size == 'small' {
+      font-size: 0.875rem;
+  }
+  @else if $size == 'large' {
+      font-size: 1.25rem;
+  }
+  @else {
+      font-size: 1rem;
+  }
+}
+@mixin tooltip($size: 5px, $dir: left, $bgcolor: #000) {
+  position: absolute;z-index:1;
+  background: $bgcolor;
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    border-style: solid;
+    @if (($dir == top) or ($dir == bottom)) {
+      left: 50%;
+      border-color: $bgcolor transparent;
+      margin-left: -$size;
+    }
+    @else {
+      top: 50%;
+      margin-top: -$size;
+      border-color: transparent $bgcolor;
+    }
+    @if ($dir == top) {
+      top: -$size;
+      border-width: 0 $size $size $size;
+    }
+    @if ($dir == right) {
+      right: -$size + 1px;
+      border-width: $size 0 $size $size;
+    }
+    @if ($dir == bottom) {
+      bottom: -$size + 1px;
+      border-width: $size $size 0 $size;
+    }
+    @if ($dir == left) {
+      left: -$size + 1px;
+      border-width: $size $size $size 0;
+    }
+  }
+}
+
+@mixin remixIcon{
+  font-family: remixicon!important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+@mixin bodyScrollbar{
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 6px;
+    &-track {
+      border: 0 solid transparent;
+      border-radius: 0;
+      background-color: #fff;
+    }
+    &-thumb {
+      border: 0 solid transparent;
+      border-radius: 20px;
+      background-image: linear-gradient(180deg, #acb5c9 0%, #acb5c9 99%);
+      background-clip: content-box;
+      box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
+      &:hover {
+        background-image: linear-gradient(180deg, #acb5c9 0%, #acb5c9 99%);
+      }
+    }
+  }
+}
+@mixin scrollbar{
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    &-track {
+      border: 0 solid transparent;
+      border-radius: 0;
+      background-color: #fff;
+    }
+    &-thumb {
+      border: 0 solid transparent;
+      border-radius: 20px;
+      background-image: linear-gradient(180deg, #acb5c9 0%, #acb5c9 99%);
+      background-clip: content-box;
+      box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
+      &:hover {
+        background-image: linear-gradient(180deg, #acb5c9 0%, #acb5c9 99%);
+      }
+    }
+  }
+}
+@mixin rippleEffectWhite{
+  overflow:hidden;
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;top: 0;left: 0;
+    width: 100%;height: 100%;
+    background-image: radial-gradient(circle,rgb(var(--primary)) 10%,transparent 10.01%);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    opacity: 0;
+    transform: scale(10,10);
+    transition: transform .4s,opacity .8s;
+    pointer-events: none;
+  }
+  &:active::after {
+    transform: scale(0,0);
+    opacity: .2;
+    transition: 0s;
+  }
+}
+@mixin rippleEffectPrimary{
+  overflow:hidden;
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;top: 0;left: 0;
+    width: 100%;height: 100%;
+    background-image: radial-gradient(circle,#fff 10%,transparent 10.01%);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    opacity: 0;
+    transform: scale(10,10);
+    transition: transform .4s,opacity .8s;
+    pointer-events: none;
+  }
+  &:active::after {
+    transform: scale(0,0);
+    opacity: .2;
+    transition: 0s;
+  }
+}
+@mixin disabled{
+  border-color: var(--disabled-border-color);
+  background-color: var(--disabled-bg);
+  color: var(--disabled-color);
+  opacity: 1;
+  pointer-events: none;
+}
+@mixin readonly{
+  border-color: var(--readonly-border-color);
+  background-color: var(--readonly-bg);
+  color: var(--readonly-color);
+  opacity: 1;
+  pointer-events: none;
+}

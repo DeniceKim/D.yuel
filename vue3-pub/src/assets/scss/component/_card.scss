@@ -1,0 +1,143 @@
+@use './../common/variable' as vars;
+@use './../common/mixin' as mixin;
+@use 'sass:map';
+@use 'sass:color';
+@use 'sass:list';
+
+// Card
+.c-card {
+  --c-card-padding: 1rem;
+  --c-card-padding-header: .5rem;
+  --c-card-padding-body: .5rem;
+  --c-card-padding-footer: .5rem;
+  --c-card-radius: .75rem;
+  --c-card-title-weight: 600;
+
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  &-inner{
+    display: inherit;
+    flex-wrap: inherit;
+    flex-direction: inherit;
+    flex-grow: 1;
+    position: inherit;
+    width: inherit;
+    min-width: 0;
+  }
+  &-title{
+    font-weight: var(--c-card-title-weight);
+    font-size: var(--num-18);
+  }
+  &-img{
+    display: flex;
+    flex: none;
+    position: relative;
+    width: 100%;
+    .c-img{
+      
+    }
+  }
+  &-header,
+  &-body,
+  &-footer{
+    position: relative;
+    width:100%;
+  }
+  &-header{
+    padding: var(--c-card-padding-header) var(--c-card-padding);
+  }
+  &-body{
+    padding: var(--c-card-padding-body) var(--c-card-padding);
+  }
+  &-footer{
+    padding: var(--c-card-padding-footer) var(--c-card-padding);
+  }
+
+  // 형태
+  &.outline{
+    border:1px solid var(--lightgray);
+  }
+  &.round{
+    border-radius: var(--c-card-radius);
+  }
+  &.fill{
+    background-color: rgb(var(--primary));
+    color: var(--white);
+    &.gray{
+      background-color: var(--bg-gray);
+      color: var(--black);
+    }
+  }
+  // 방향(가로)
+  &.horiz{
+    flex-direction: row;
+    .c-card-img{
+      width: 100px;
+    }
+    .c-card-inner{
+      flex-direction: column;
+      width: auto;
+    }
+  }
+  // 이미지 위에 텍스트
+  &.overlay{
+    .c-card-inner{
+      position: absolute;
+      color: var(--white);
+    }
+  }
+  // 건강관리 - 건강미션 - 내 건강부채 카드
+  &.mission-card{
+    .c-card-header{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      .c-card-title{
+        font-size: 18px;
+        // color: lighten(#3769f4, 30%);
+        color: #c8d6fc;
+        i{
+          vertical-align: middle;
+          margin-left: 4px;
+          font-size: 1.5rem;
+        }
+      }
+      .c-btn{
+        background-color: transparent;
+        color: #c8d6fc;
+      }
+    }
+    .c-card-body{
+      padding-top: 1rem;
+      .now_rate{
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        strong{ font-size: 28px; }
+        .c-btn{
+          max-width: 82px;
+          padding: 2px 4px;
+          font-size: 13px;
+          color: rgb(var(--primary));
+        }
+      }
+      .now_date{
+        font-size: 13px;
+        color: #c8d6fc;
+      }
+    }
+    .c-card-footer{
+      .c-btn{
+        font-size: 14px;
+        &.dark{
+          i{ margin-right: 4px; font-size: 14px; }
+        }
+      }
+    }
+  }
+}

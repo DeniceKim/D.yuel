@@ -1,0 +1,249 @@
+@use './../common/variable' as vars;
+@use './../common/mixin' as mixin;
+@use 'sass:map';
+@use 'sass:color';
+@use 'sass:list';
+
+// @include size(10px, 30px);
+// @include loadFontsize(40);
+// $Mixin 
+@mixin loadSize($width , $height: $width ) {
+  width: $width;
+  height: $height;
+}
+
+@mixin loadFontsize($size: 24, $base: 16) {
+  font-size: $size + px;
+  font-size: ($size / $base) * 1rem;
+}
+
+@mixin loadAbsPosition ($top: auto, $right: auto, $bottom: auto, $left: auto) {
+  position: absolute;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+
+@mixin loadOpacity($opacity) {
+  opacity: $opacity;
+  $opacityIE: $opacity * 100;
+  filter: alpha(opacity=$opacityIE);
+}
+
+@mixin loadAnimation($animation...) {
+  animation: $animation;
+}
+
+// Loading
+.c-load{
+  --c-load-bezier: cubic-bezier(.4, 0, .2, 1);
+  --c-load-color:rgb(var(--primary));
+
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top:0;
+  left:0;
+  z-index:9999;
+  width: 100%;
+  height: 100%;
+  background-color:rgba(0,0,0,.5);
+
+  &.type1{
+    .c-load-inner,
+    .c-load-circle {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      border-radius: 100%;
+    }
+    .c-load-inner {
+      display:flex;
+      align-items: center;
+      justify-content: center;
+      &:hover{
+        .c-load-circle {
+          border-color: transparent var(--white) transparent var(--white);
+          transition: all 0.5s ease-in-out;
+        }
+      }
+    }
+    .c-load-circle {
+      border: 2px solid transparent;
+      border-color: transparent rgb(var(--primary)) transparent rgb(var(--primary));
+      animation: rotate-load-type1 1.5s linear 0s infinite normal;
+      transform-origin: 50% 50%;
+      transition: all 0.5s ease-in-out;
+    }
+    
+    .c-load-text {
+      position: absolute;
+      top: 50%;
+      transform:translateY(-50%);
+      width: 80px;
+      margin: auto;
+      color: #ffffff;
+      font-family: "Helvetica Neue, "Helvetica", ""arial";
+      font-size: 10px;
+      font-weight: 700;
+      opacity: 0;
+      text-align: center;
+      text-transform: uppercase;
+      animation: load-text-opacity-type1 2s linear 0s infinite normal;
+    }
+  }
+  &.type2{
+    text-align: center;
+    .c-load-spinner{
+      @include loadSize(40px);
+      display: inline-block;
+      position: relative;
+      border-radius: 50%;
+      border: 3px solid rgba(255, 255, 255, 0.4);
+      &:after {
+        content: "";
+        @include loadAbsPosition(-3px, -3px, -3px, -3px);
+        @include loadAnimation(spin 1s linear infinite);
+        border-radius: 50px;
+        border: 3px solid transparent;
+        border-top-color: var(--c-load-color);
+      }
+    }
+    .c-load-text{
+      margin-top:4px;
+      color:var(--white);
+      font-size: var(--num-12);
+      text-transform: uppercase;
+    }
+  }
+  &.dot{
+    $dotSize:4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:0 auto;
+    background-color:transparent;
+    
+    &::before{
+      content:"";
+      display:inline-block;
+      width:0;height:0;
+      margin:0 4px;
+      border:$dotSize solid var(--deepgray);
+      border-radius: 100%;
+      animation: dotLoading 1s infinite;
+    }
+    i{
+      &::before,
+      &::after{
+        content:"";
+        display:inline-block;
+        width:0;height:0;
+        margin:0 4px;
+        border:$dotSize solid transparent;
+        border-radius: 100%;
+      }
+      &::before{
+        border-color:vars.$secondary;
+        animation: dotLoading 1s infinite 0.15s;
+      }
+      &::after{
+        border-color:rgb(var(--tertiary));
+        animation: dotLoading 1s infinite 0.3s;
+      }
+    }
+  }
+}
+
+.loader {
+  $loaderDotSize: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+
+  & i {
+    width: $loaderDotSize;
+    height: $loaderDotSize;
+    border-radius: 50%;
+    background-color: var(--loader-color1, #ff4d4d);
+    animation: dotSpread 1.5s infinite ease-in-out;
+  }
+
+  & i:nth-child(2) {
+    background-color: var(--loader-color2, #4da6ff);
+    animation-delay: -0.3s;
+  }
+
+  & i:nth-child(3) {
+    background-color: var(--loader-color3, #ffcc00);
+    animation-delay: -0.6s;
+  }
+}
+
+.c-load-data{
+  --c-load-data-bezier: cubic-bezier(.4, 0, .2, 1);
+}
+
+@keyframes rotate-load-type1 {
+  0%  {transform: rotate(0deg);}
+  100% {transform: rotate(360deg);}
+}
+@keyframes load-text-opacity-type1 {
+  0%  {opacity: 0}
+  20% {opacity: 0}
+  50% {opacity: 1}
+  100%{opacity: 0}
+}
+@keyframes grow {
+  0% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes spinreverse {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes dotLoading {
+  0% {transform:translateY(0);}
+  25% {transform:translateY(0);}
+  50% {transform:translateY(-6px);}
+  75% {transform:translateY(0);}
+  100% {transform:translateY(0);}
+}
+
+@keyframes dotSpread {
+  0%, 80%, 100% { 
+    opacity: 0.3;
+    transform: scale(0.5);
+  }
+  40% { 
+    opacity: 1;
+    transform: scale(1);
+  }
+}

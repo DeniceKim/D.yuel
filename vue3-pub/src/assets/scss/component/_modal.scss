@@ -1,0 +1,455 @@
+@use './../common/variable' as vars;
+@use './../common/mixin' as mixin;
+@use 'sass:map';
+@use 'sass:color';
+@use 'sass:list';
+
+// Modal
+.c-modal {
+  --c-modal-bezier: cubic-bezier(.4, 0, .2, 1);
+  --c-modal-min-width:17.5rem;
+  --c-modal-max-width:calc(100% - var(--c-modal-padding));
+  --c-modal-full-width:100%;
+  --c-modal-padding:1rem;
+  --c-modal-radius:.75rem;
+  --c-modal-radius-default:.75rem;
+  --c-modal-icon-size:1.5rem;
+  --c-modal-active-color:var(--white);
+  --c-modal-active-bg:rgb(var(--primary));
+  --c-modal-active-border-color:rgb(var(--primary));
+  --c-modal-transition: max-width .3s ease, max-height .3s ease, transform .3s ease-out, opacity .3s ease;
+  --c-modal-z-index: 101;
+  
+  overflow: hidden;
+  visibility: hidden;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;right:0;
+  bottom:0;left: 0;
+  z-index: -1;
+  width: 0;
+  height:0;
+  margin:auto;
+  background-color: transparent;
+
+  // 위치
+  &.bottom{
+    top:auto;right:auto;
+    width:100%;
+    align-items: flex-end;
+    margin:0;
+    .c-modal-inner{
+      width: 100%;
+      min-width: 100%;
+      max-width: 100%;
+      border-radius: .75rem .75rem 0 0;
+      box-shadow: none;
+      transform: translateY(100%);
+      transition: var(--c-modal-transition);
+    }
+    .c-modal-close-btn{
+      right: .5rem;
+    }
+    .c-modal-btn{
+      &:first-child{
+        border-bottom-left-radius: 0;
+      }
+      &:last-child{
+        border-bottom-right-radius: 0;
+      }
+      &:only-child{
+        margin:0;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+  }
+
+  // 유형
+  &.alert{
+    .c-modal-inner{
+      min-height: 150px;
+    }
+    .c-modal-body{
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      vertical-align: middle;
+    }
+  }
+  // 전체 화면
+  &.fullscreen{
+    .c-modal-inner {
+      border-radius:0;
+    }
+    .c-modal-header{
+      height: 40px;
+    }
+    .c-modal-close-btn{
+      top: .25rem;
+      right: .5rem;
+    }
+    .c-modal-btn{
+      &:first-child{
+        border-bottom-left-radius: 0;
+      }
+      &:last-child{
+        border-bottom-right-radius: 0;
+      }
+      &:only-child{
+        margin:0;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+  }
+  // 활성화
+  &.is-show {
+    display: flex;
+    visibility: visible;
+    width: 100%;
+    height: 100%;
+    z-index: calc(var(--c-modal-z-index));
+    .c-dim{
+      z-index: calc(var(--c-modal-z-index));
+    }
+    .c-modal-inner {
+      z-index: calc(var(--c-modal-z-index) + 1);
+      min-width: 17.5rem;
+      max-width: calc(100% - 2rem);
+      max-height: calc(100% - 2rem);
+      transform: translateY(0);
+      opacity: 1;
+      animation: modalPosition .2s ease forwards;
+    }
+    // 활성화시 하단 위치
+    &.bottom{
+      .c-modal-inner {
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+        transform: translateY(0);
+      }
+    }
+    // 활성화시 전체화면
+    &.fullscreen{
+      .c-modal-inner{
+        width:100%;
+        max-width: 100%;
+        min-height: 100%;
+        animation: none;
+      }
+    }
+  }
+}
+// 모달 콘텐츠 부모요소
+.c-modal-inner {
+  overflow-x: hidden;
+  overflow-y: auto;
+  display:flex;
+  flex-direction: column;
+  position:relative;
+  z-index:101;
+  width: auto;
+  min-width: 0;
+  min-height: 0;
+  max-width: 0;
+  max-height: 0;
+  margin: 0;
+  border-radius: var(--c-modal-radius);
+  padding: 0;
+  background-color: rgb(var(--white-rgb));
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(50%);
+  opacity: 0;
+  transition: var(--c-modal-transition);
+}
+// 모달 타이틀
+.c-modal-title{
+  flex:1 1 0;
+  display:inline-block;
+  padding-right: calc(2rem + 1rem);
+  font-weight: vars.$extra;
+  &.gray{
+    color: var(--gray);
+    em{ color: var(--black); }
+  }
+}
+// 모달 상단 닫기
+.c-modal-close-btn{
+  position:absolute;
+  top:.25rem;
+  right:.25rem;
+  z-index:1;
+  width: 2rem;
+  height: 2rem;
+  &:active{
+    transform:rotate(180deg);
+    transition: transform .3s ease;
+  }
+}
+// 모달 상단 뒤로가기
+.c-modal-back-btn{
+  position:absolute;
+  top:.25rem;
+  left:.25rem;
+  width: 2rem;
+  height: 2rem;
+  z-index:1;
+}
+// 모달 상단
+.c-modal-header{
+  display:flex;
+  align-items: center;
+  flex: 0 0 auto;
+  position: relative;
+  padding: .5rem 1rem;
+  + .c-modal-body{
+    padding-top: .5rem;
+  }
+  &:has(.desc){ flex-wrap: wrap; }
+  .desc{
+    width: 100%;
+    display: block;
+    margin-top: 0.5rem;
+    font-size: var(--num-14);
+    &.blue{ color: rgb(var(--primary)); }
+    &.gray{ color: rgb(var(--dimgray)); }
+  }
+  &:has(.c-modal-back-btn){
+    .c-modal-title{
+      padding-left: 1.5rem;
+      padding-right: 0;
+    }
+  }
+}
+// 모달 본문
+.c-modal-body{
+  overflow-x: hidden;
+  overflow-y: auto;
+  display:flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  position: relative;
+  padding:1rem;
+  // 모달 내 카드
+  .c-card-body{ 
+    padding: 1rem; 
+    .info_table{
+      font-size: var(--num-14);
+      color: var(--dimgray);
+    }
+  }
+  .scroll_area:has(.ex_table){
+    padding: 1rem 0;
+  }
+  .chk_btn_list{ padding-bottom: 1rem; }
+  &:has(.search_area){
+    padding: 0;
+  }
+  .search_area{
+    padding: 1rem 1rem 1.5rem;
+    &.is-sticky{ top: 0; }
+  }
+  &.explanation_cont{
+    .c-img{
+      width: 100px;
+      margin: 0 auto;
+    }
+    .primary{
+      font-size: var(--num-18); 
+      font-weight: vars.$extra; 
+      + .desc{ margin: 0.75rem 0; }
+    }
+    .desc{ color: var(--deepgray); }
+  }
+  &:has(.c-btn.confirm){
+    .chk_area{ padding-bottom: 0.5rem; }
+  }
+  &:has(.terms_table){
+    .title{ margin-bottom: 1.5rem}
+    .title_label{
+      font-size: var(--num-14);
+      font-weight: vars.$semibold;
+      color: var(--dimgray);
+    }
+    .sub_desc{
+      display: block;
+      margin-bottom: 1.5rem;
+      color: var(--dimgray);
+    }
+  }
+  &:has(.c-list){
+    .desc{
+      font-size: var(--num-14); 
+      + .c-list{
+        background-color: transparent;
+        &.number{ margin: 1rem 0 0.5rem; }
+        li{ font-size: var(--num-14); }
+      }
+    }
+    .c-card.gray.round{
+      .c-list{
+        background-color: transparent;
+        li{ font-size: var(--num-14); }
+      }
+    }
+  }
+
+  &.family{
+    strong{
+      display: block;
+      font-size: var(--num-14);
+      em{ color: rgb(var(--primary)); }
+    }
+    .desc{ 
+      display: block;
+      margin-top: 1rem;
+      font-size: var(--num-14); 
+      color: var(--dimgray); 
+    }
+  }
+}
+// 모달 하단
+.c-modal-footer{
+  display:flex;
+  flex: 0 0 auto;
+  width:100%;
+  .c-checktype{
+    flex:1 1 0;
+    border:1px solid var(--silver);
+    border-right:0;
+    border-left:0;
+    border-radius: 0 0 0 .75rem;
+    .c-label{
+      width:100%;
+      height:100%;
+      padding: 0 1rem;
+    }
+    + .c-modal-btn{
+      border-radius: 0 0 .75rem 0;
+      border:1px solid var(--silver);
+      border-right:0;
+      background-color:var(--white);
+      color:rgb(var(--primary));
+    }
+  }
+}
+// 모달 하단 버튼
+.c-modal-btn{
+  overflow:hidden;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex:1 1 0;
+  position:relative;
+  width:100%;
+  padding: 1rem;
+  border: 1px solid transparent;
+  border-radius: 0;
+  background-color:rgb(var(--primary));
+  color:var(--white);
+  font-size: var(--num-16);
+  font-weight:vars.$regular;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1;
+  @include mixin.rippleEffectPrimary;
+
+  &:first-child{
+    border-bottom-left-radius: var(--c-modal-radius);
+  }
+  &:last-child{
+    border-bottom-right-radius: var(--c-modal-radius);
+  }
+  &:only-child{
+    margin:0;
+    border-bottom-right-radius: var(--c-modal-radius);
+    border-bottom-left-radius: var(--c-modal-radius);
+  }
+  .text{
+    color:inherit;
+    font-size:inherit;
+    font-weight:inherit;
+  }
+  &:hover,
+  &:focus,
+  &:active{
+    color:var(--white);
+    font-size: var(--num-16);
+    font-weight:vars.$regular;
+  }
+  // 두번째 색상
+  &.secondary{
+    background-color:rgb(var(--secondary));
+  }
+  // 세번째 색상
+  &.tertiary{
+    background-color:rgb(var(--tertiary));
+  }
+  // cancel
+  &.cancel{
+    background-color:var(--silver);
+  }
+  // black 색상
+  &.black{
+    background-color:vars.$black;
+  }
+  &.gray{
+    background-color:vars.$gray;
+  }
+  // white 색상
+  &.white{
+    background-color:var(--white);
+    color:var(--black);
+  }
+  // outline 타입
+  &.outline{
+    border-color:rgb(var(--primary));
+    background-color:transparent;
+    color:var(--black);
+    &:first-child{
+      margin-right:-1px;
+    }
+    &:only-child{
+      margin:0;
+    }
+    &.secondary{
+      border-color:rgb(var(--secondary));
+    }
+    &.tertiary{
+      border-color:rgb(var(--tertiary));
+    }
+    &.cancel{
+      border-color:var(--silver);
+    }
+    &.gray{
+      border-color:vars.$gray;
+    }
+    &.black{
+      border-color:vars.$black;
+    }
+  }
+  // disabled
+  &:disabled,
+  &[disabled]{
+    @include mixin.disabled;
+  }
+  &.outline{
+    @include mixin.rippleEffectWhite;
+    &:disabled,
+    &[disabled]{
+      @include mixin.disabled;
+    }
+  }
+}
+/* 애니메이션 정의 */
+@keyframes modalPosition {
+  from {
+    transform: translateY(100%); // 시작 위치
+  }
+  to {
+    transform: translateY(0); // 종료 위치
+  }
+}

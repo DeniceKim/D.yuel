@@ -1,0 +1,196 @@
+@use './../common/variable' as vars;
+@use './../common/mixin' as mixin;
+@use 'sass:map';
+@use 'sass:color';
+@use 'sass:list';
+
+// Tabs
+.c-tabs {
+  --c-tabs-bezier: cubic-bezier(.4, 0, .2, 1);
+  --c-tabs-padding: 1rem;
+  --c-tabs-padding-y: .5rem;
+  --c-tabs-padding-x: .5rem;
+  --c-tabs-bar-color: rgb(var(--primary));
+  --c-tabs-font-weight: 600;
+  
+  // 형태
+  &.fill{
+    .c-tab-item{
+      background-color: var(--lightgray);
+      &.is-active{
+        border:1px solid var(--lightgray);
+        border-bottom:0;
+        background-color: var(--white);
+        color: rgb(var(--primary));
+        font-weight: var(--c-tabs-font-weight);
+        &::after{
+          display: none;
+        }
+      }
+    }
+  }
+  &.outline{
+    .c-tab-item{
+      background-color: var(--white);
+      &.is-active{
+        border:1px solid var(--lightgray);
+        border-bottom:0;
+        background-color: var(--white);
+        color: rgb(var(--primary));
+        font-weight: var(--c-tabs-font-weight);
+        &::after{
+          display: none;
+        }
+      }
+    }
+  }
+  &.pills{
+    .c-tab-btn{
+      display:inline-flex;
+      flex-grow: 1;
+    }
+    .c-tab-item{
+      overflow:hidden;
+      flex: 1 1 0;
+      &:first-child{
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+      }
+      &:last-child{
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+      }
+      &::after{
+        display:none;
+      }
+      &.is-active{
+        .c-tab-btn{
+          border-radius:8px;
+          border:1px solid rgb(var(--primary));
+        }
+      }
+    }
+    .c-tablist-inner{
+      display:flex;
+      width:100%;
+      background-color:transparent;
+    }
+    .c-tablist{
+      padding: 5px;
+      border-radius:8px;
+      background-color:var(--lightgray);
+      &::after{
+        display:none;
+      }
+    }
+  }
+  // 정렬
+  &.justify{
+    .c-tab-btn{
+      display:inline-flex;
+      flex-grow: 1;
+    }
+    .c-tab-item{
+      flex: 1 1 0;
+    }
+    .c-tablist-inner{
+      display:flex;
+      width:100%;
+    }
+  }
+}
+// tab 버튼
+.c-tab-btn{
+  display:inline-flex;
+  align-items: center;
+  justify-content: center;
+  position:relative;
+  padding: var(--c-tabs-padding-y) var(--c-tabs-padding);
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  vertical-align: baseline;
+  text-align: center;
+  .text{
+    display:inline-block;
+    max-width:100%;
+    @include mixin.textClip;
+  }
+  &.is-active,
+  &[aria-selected=true]{
+  }
+  @include mixin.rippleEffectWhite;
+}
+// 탭 버튼 아이템
+.c-tab-item{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  background-color: var(--white);
+  &::after{
+    content: "";
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    border-radius: 1px;
+    background-color: var(--c-tabs-bar-color);
+    transition: left .2s var(--c-tabs-bezier), max-width .2s var(--c-tabs-bezier), opacity .3s var(--c-tabs-bezier), background-color .3s var(--c-tabs-bezier);
+  }
+  &.is-active{
+    z-index:1;
+    color: rgb(var(--primary));
+    font-weight: var(--c-tabs-font-weight);
+    &::after{
+      display: block;
+    }
+  }
+}
+// 탭 스크롤 영역
+.c-tablist-inner{
+  display:flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  @include mixin.scrollbar;
+}
+// pc에서만 스크를 보이게 처리
+@media (hover: hover) and (pointer: fine) {
+  .c-tablist-inner{
+    &::-webkit-scrollbar {
+      height: 4px;
+    }
+  }
+}
+// 탭 리스트
+.c-tablist{
+  overflow: hidden;
+  position: relative;
+  &::after{
+    content:"";
+    display:block;
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:1px;
+    background-color:var(--lightgray);
+  }
+}
+// tab contents
+.c-tab-panel{
+  display: none;
+  &.is-active,
+  &[aria-hidden="false"]{
+    display: block;
+  }
+}
+.c-tab-content{
+  position: relative;
+  width: 100%;
+  padding: .5rem 0;
+}

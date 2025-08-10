@@ -1,0 +1,173 @@
+@use './../common/variable' as vars;
+@use './../common/mixin' as mixin;
+@use 'sass:map';
+@use 'sass:color';
+@use 'sass:list';
+
+// Navigation
+.c-nav {
+  --c-nav-bezier: cubic-bezier(.4, 0, .2, 1);
+  --c-nav-padding: 1rem;
+  --c-nav-padding-y: .5rem;
+  --c-nav-padding-x: .5rem;
+  --c-nav-bar-color: rgb(var(--primary));
+  --c-nav-font-weight: 600;
+
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  background-color: var(--white);
+  
+  // 형태
+  &.fill{
+    &::after{
+      content:"";
+      display:block;
+      position:absolute;
+      bottom:0;
+      left:0;
+      width:100%;
+      height:1px;
+      background-color:var(--lightgray);
+    }
+    .c-nav-item{
+      background-color: var(--lightgray);
+      &.is-active{
+        border:1px solid var(--lightgray);
+        border-bottom:0;
+        background-color: var(--white);
+        color: rgb(var(--primary));
+        font-weight: var(--c-nav-font-weight);
+        &::after{
+          display: none;
+        }
+      }
+    }
+  }
+  &.outline{
+    &::after{
+      content:"";
+      display:block;
+      position:absolute;
+      bottom:0;
+      left:0;
+      width:100%;
+      height:1px;
+      background-color:var(--lightgray);
+    }
+    .c-nav-item{
+      background-color: var(--white);
+      &.is-active{
+        border:1px solid var(--lightgray);
+        border-bottom:0;
+        background-color: var(--white);
+        color: rgb(var(--primary));
+        font-weight: var(--c-nav-font-weight);
+        &::after{
+          display: none;
+        }
+      }
+    }
+  }
+  &.pills{
+    .c-nav-item{
+      background-color: var(--white);
+      &.is-active{
+        border-radius: 5px;
+        border:1px solid rgb(var(--primary));
+        color: rgb(var(--primary));
+        &::after{
+          display: none;
+        }
+      }
+    }
+  }
+  &.round{
+    .c-nav-item{
+      &.is-active{
+        border-radius: 20px;
+      }
+    }
+  }
+  // 정렬
+  &.justify{
+    .c-nav-btn{
+      display:inline-flex;
+      flex-grow: 1;
+    }
+    .c-nav-item{
+      flex: 1 1 0;
+    }
+    .c-navlist-inner{
+      display:flex;
+      width:100%;
+    }
+  }
+}
+// nav 버튼
+.c-nav-btn{
+  display:inline-flex;
+  align-items: center;
+  justify-content: center;
+  position:relative;
+  padding: var(--c-nav-padding-y) var(--c-nav-padding);
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  vertical-align: baseline;
+  text-align: center;
+  .text{
+    display:inline-block;
+    max-width:100%;
+    @include mixin.textClip;
+  }
+  &.is-active,
+  &[aria-selected=true]{
+  }
+  @include mixin.rippleEffectWhite;
+}
+// nav 버튼 아이템
+.c-nav-item{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  background-color: var(--white);
+  &::after{
+    content: "";
+    display: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    border-radius: 1px;
+    background-color: var(--c-nav-bar-color);
+    transition: left .2s var(--c-nav-bezier), max-width .2s var(--c-nav-bezier), opacity .3s var(--c-nav-bezier), background-color .3s var(--c-nav-bezier);
+  }
+  &.is-active{
+    z-index:1;
+    color: rgb(var(--primary));
+    font-weight: var(--c-nav-font-weight);
+    &::after{
+      display: block;
+    }
+  }
+}
+// 탭 리스트
+.c-navlist{
+  display:flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  @include mixin.scrollbar;
+}
+// pc에서만 스크를 보이게 처리
+@media (hover: hover) and (pointer: fine) {
+  .c-navlist{
+    &::-webkit-scrollbar {
+      height: 4px;
+    }
+  }
+}

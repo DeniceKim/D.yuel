@@ -1,0 +1,87 @@
+@use './../common/variable' as vars;
+@use './../common/mixin' as mixin;
+@use 'sass:map';
+@use 'sass:color';
+@use 'sass:list';
+
+// List
+.c-list {
+  --c-list-padding-x: var(--num-12);
+  
+  width:100%;
+  background-color:var(--white);
+  color: var(--black);
+  span{
+    color:inherit;font-size:inherit;font-weight:inherit;
+  }
+  li{
+    position:relative;
+    padding-left:var(--c-list-padding-x);
+    font-size:var(--num-16);
+    // 기본 bullet type
+    &::before{
+      content:"";
+      display:inline-block;
+      position:absolute;top:10px;left:0;
+      width:3px;height:3px;
+      background:var(--deepgray);
+    }
+    ~ li{
+      margin-top:var(--num-08);
+    }
+    li{
+      padding-left:0;
+      &::before{display:none;}
+    }
+  }
+  .depth2{
+    li{
+      padding-left:var(--c-list-padding-x);
+      &::before{
+        display:inline-block;
+        top:11px;
+        width:4px;height:2px;
+        background:var(--deepgray);
+      }
+    }
+  }
+  &.line{
+    li{
+      padding-left:var(--c-list-padding-x);
+      &::before{
+        display:inline-block;
+        top:11px;
+        width:4px;height:2px;
+        background:var(--deepgray);
+      }
+    }
+  }
+  &.number{
+    counter-reset: number 0;
+    > li{
+      padding-left: 1rem;
+      text-indent: -1rem;
+      counter-increment: number 1;
+      &::before{ 
+        content: counter(number) ". ";
+        position: initial;
+        width: auto; height: auto;
+        background-color: transparent;
+        padding-left: 1rem;
+      }
+      &:has(strong + .depth2){
+        &::before{ 
+          font-size: var(--num-16);
+          font-weight: vars.$semibold;
+        }
+        strong{ 
+          display: inline-block;
+          margin-bottom: 0.5rem; 
+          padding-left: 1rem;
+          font-size: var(--num-16);
+          + .depth2 { text-indent: 0; }
+        }
+      }
+    }
+  }
+}

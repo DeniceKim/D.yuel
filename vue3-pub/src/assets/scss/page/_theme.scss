@@ -1,0 +1,9 @@
+﻿@use './../common/_variable' as vars;
+@use './../common/_mixin' as mixin;
+@use 'sass:map';
+@use 'sass:color';
+@use 'sass:list';
+
+// 서브 콘텐츠
+.l-page{
+}

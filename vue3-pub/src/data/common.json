@@ -1,0 +1,340 @@
+[
+  {
+    "title": "공통 Compoent",
+    "date": "25.01 ~ ",
+    "class": "uiux",
+    "sitemap_list": [
+      {
+        "name": "Guide",
+        "designLink": "",
+        "details": [
+          {
+            "title": "Color",
+            "status": "tbd",
+            "link": "/guide/color",
+            "designLink": "",
+            "startSchedule": "25.",
+            "endSchedule": "-",
+            "history": [
+              "디자인 확정 후 작업"
+            ]
+          },
+          {
+            "title": "Typo",
+            "status": "tbd",
+            "link": "/guide/typo",
+            "designLink": "",
+            "startSchedule": "25.",
+            "endSchedule": "-",
+            "history": [
+              "디자인 확정 후 작업"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Component",
+        "designLink": "",
+        "details": [
+          {
+            "title": "Button",
+            "status": "ok",
+            "link": "/component/button",
+            "designLink": "",
+            "startSchedule": "25.01.03",
+            "endSchedule": "25.01.06",
+            "history": [
+              "기본 유형들만 추가된 상태(추 후 유형 추가)"
+            ]
+          },
+          {
+            "title": "Input",
+            "status": "ok",
+            "link": "/component/input",
+            "designLink": "",
+            "startSchedule": "25.01.06",
+            "endSchedule": "25.01.07",
+            "history": [
+              "기본 유형들만 추가된 상태(추 후 유형 추가)"
+            ]
+          },
+          {
+            "title": "Checkbox",
+            "status": "ok",
+            "link": "/component/checkbox",
+            "designLink": "",
+            "startSchedule": "25.01.07",
+            "endSchedule": "25.01.08",
+            "history": [
+              "기본 유형들만 추가된 상태(추 후 유형 추가)"
+            ]
+          },
+          {
+            "title": "Radio",
+            "status": "ok",
+            "link": "/component/radio",
+            "designLink": "",
+            "startSchedule": "25.01.08",
+            "endSchedule": "25.01.09",
+            "history": [
+              "기본 유형들만 추가된 상태(추 후 유형 추가)"
+            ]
+          },
+          {
+            "title": "Select",
+            "status": "ok",
+            "link": "/component/select",
+            "designLink": "",
+            "startSchedule": "25.01.09",
+            "endSchedule": "25.01.10",
+            "history": [
+              "기본 유형들만 추가된 상태(추 후 유형 추가)"
+            ]
+          },
+          {
+            "title": "Tag",
+            "status": "ok",
+            "link": "/component/Tag",
+            "designLink": "",
+            "startSchedule": "25.01.13",
+            "endSchedule": "25.01.13",
+            "history": [
+              "기본 유형들만 추가된 상태(추 후 유형 추가)"
+            ]
+          },
+          {
+            "title": "Range",
+            "status": "ok",
+            "link": "/component/range",
+            "designLink": "",
+            "startSchedule": "25.01.13",
+            "endSchedule": "25.01.13",
+            "history": [
+              "기본 유형들만 추가된 상태(추 후 유형 추가)"
+            ]
+          },
+          {
+            "title": "Tooltip",
+            "status": "ok",
+            "link": "/component/tooltip",
+            "designLink": "",
+            "startSchedule": "25.01.13",
+            "endSchedule": "25.01.13",
+            "history": [
+              "기본 유형들만 추가된 상태(추 후 유형 추가)"
+            ]
+          },
+          {
+            "title": "Badge",
+            "status": "ok",
+            "link": "/component/badge",
+            "designLink": "",
+            "startSchedule": "25.01.13",
+            "endSchedule": "25.01.13",
+            "history": [
+              "기본 유형들만 추가된 상태(추 후 유형 추가)"
+            ]
+          },
+          {
+            "title": "Table",
+            "status": "ok",
+            "link": "/component/Table",
+            "designLink": "",
+            "startSchedule": "25.01.13",
+            "endSchedule": "25.01.13",
+            "history": [
+              "기본 유형들만 추가된 상태(추 후 유형 추가)"
+            ]
+          },
+          {
+            "title": "List",
+            "status": "ok",
+            "link": "/component/list",
+            "designLink": "",
+            "startSchedule": "25.01.14",
+            "endSchedule": "25.01.14",
+            "history": [
+              "기본 유형들만 추가된 상태(추 후 유형 추가)"
+            ]
+          },
+          {
+            "title": "Card",
+            "status": "ok",
+            "link": "/component/card",
+            "designLink": "",
+            "startSchedule": "25.01.14",
+            "endSchedule": "25.01.14",
+            "history": [
+              "기본 유형들만 추가된 상태(추 후 유형 추가)"
+            ]
+          },
+          {
+            "title": "Tabs",
+            "status": "ok",
+            "link": "/component/tabs",
+            "designLink": "",
+            "startSchedule": "25.01.14",
+            "endSchedule": "25.01.14",
+            "history": [
+              "기본 유형들만 추가된 상태(추 후 유형 추가)"
+            ]
+          },
+          {
+            "title": "Navigation",
+            "status": "ok",
+            "link": "/component/navigation",
+            "designLink": "",
+            "startSchedule": "25.01.14",
+            "endSchedule": "25.01.14",
+            "history": [
+              "기본 유형들만 추가된 상태(추 후 유형 추가)"
+            ]
+          },
+          {
+            "title": "Toast",
+            "status": "ok",
+            "link": "/component/toast",
+            "designLink": "",
+            "startSchedule": "25.01.15",
+            "endSchedule": "25.01.15",
+            "history": [
+              "기본 유형들만 추가된 상태(추 후 유형 추가)"
+            ]
+          },
+          {
+            "title": "Modal",
+            "status": "ok",
+            "link": "/component/modal",
+            "designLink": "",
+            "startSchedule": "25.01.15",
+            "endSchedule": "25.01.16",
+            "history": [
+              "기본 유형들만 추가된 상태(추 후 유형 추가)"
+            ]
+          },
+          {
+            "title": "Swiper",
+            "status": "ok",
+            "link": "/component/swiper",
+            "designLink": "",
+            "startSchedule": "25.01.20",
+            "endSchedule": "25.01.20",
+            "history": [
+              "기본 유형들만 추가된 상태(추 후 유형 추가)"
+            ]
+          },
+          {
+            "title": "Accordion",
+            "status": "ok",
+            "link": "/component/accordion",
+            "designLink": "",
+            "startSchedule": "25.01.20",
+            "endSchedule": "25.01.20",
+            "history": [
+              "기본 유형들만 추가된 상태(추 후 유형 추가)"
+            ]
+          },
+          {
+            "title": "Dropdown",
+            "status": "ok",
+            "link": "/component/dropdown",
+            "designLink": "",
+            "startSchedule": "25.01.31",
+            "endSchedule": "25.01.31",
+            "history": [
+              "기본 유형들만 추가된 상태(추 후 유형 추가)"
+            ]
+          },
+          {
+            "title": "Calendar",
+            "status": "ok",
+            "link": "/component/calendar",
+            "designLink": "",
+            "startSchedule": "25.01.20",
+            "endSchedule": "25.01.22",
+            "history": [
+              "기본 유형들만 추가된 상태(추 후 유형 추가)"
+            ]
+          },
+          {
+            "title": "Tabbar",
+            "status": "ok",
+            "link": "/component/tabbar",
+            "designLink": "",
+            "startSchedule": "25.01.21",
+            "endSchedule": "25.01.21",
+            "history": [
+              "기본 유형들만 추가된 상태(추 후 유형 추가)"
+            ]
+          },
+          {
+            "title": "Progress",
+            "status": "ok",
+            "link": "/component/progress",
+            "designLink": "",
+            "startSchedule": "25.01.22",
+            "endSchedule": "25.01.22",
+            "history": [
+              "기본 유형들만 추가된 상태(추 후 유형 추가)"
+            ]
+          },
+          {
+            "title": "Loading",
+            "status": "ok",
+            "link": "/component/loading",
+            "designLink": "",
+            "startSchedule": "25.01.22",
+            "endSchedule": "25.01.22",
+            "history": [
+              "기본 유형들만 추가된 상태(추 후 유형 추가)"
+            ]
+          },
+          {
+            "title": "Floating",
+            "status": "ok",
+            "link": "/component/floating",
+            "designLink": "",
+            "startSchedule": "25.01.23",
+            "endSchedule": "25.01.23",
+            "history": [
+              "기본 유형들만 추가된 상태(추 후 유형 추가)"
+            ]
+          },
+          {
+            "title": "SideBar",
+            "status": "ok",
+            "link": "/component/sidebar",
+            "designLink": "",
+            "startSchedule": "25.01.23",
+            "endSchedule": "25.01.23",
+            "history": [
+              "기본 유형들만 추가된 상태(추 후 유형 추가)"
+            ]
+          },
+          {
+            "title": "Header",
+            "status": "ok",
+            "link": "/component/header",
+            "designLink": "",
+            "startSchedule": "25.01.24",
+            "endSchedule": "25.01.24",
+            "history": [
+              "기본 유형들만 추가된 상태(추 후 유형 추가)"
+            ]
+          },
+          {
+            "title": "Step",
+            "status": "ok",
+            "link": "/component/step",
+            "designLink": "",
+            "startSchedule": "25.02.07",
+            "endSchedule": "25.02.07",
+            "history": [
+              "기본 유형들만 추가된 상태(추 후 유형 추가)"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

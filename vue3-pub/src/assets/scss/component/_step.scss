@@ -1,0 +1,112 @@
+@use './../common/variable' as vars;
+@use './../common/mixin' as mixin;
+@use 'sass:map';
+@use 'sass:color';
+@use 'sass:list';
+
+// Step
+// Colours -----------------------------------------
+$grey:  #777;
+$grey2: #dfe3e4;
+$blue:  #2183dd;
+$green: #009900;
+$white: #fff;
+
+// Progress Bar ------------------------------------
+.c-step {
+  overflow:hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.c-step-inner {
+  position: relative; 
+  display: flex;
+  flex:1 1 100%;
+  justify-content: space-around;
+  padding: 10px 0 0;
+}
+.c-step-text{
+  position:relative;
+  margin-top:20px;
+  font-size: var(--num-14);
+  text-align: center;
+}
+.c-step-item{
+  position:relative;
+  flex:1;
+  &::before{
+    content:"";
+    display: inline-block;
+    position: absolute;
+    top:0;
+    left:calc(50% - 4px);
+    z-index:1;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background-color: var(--gray);
+  }
+  &:not(:last-of-type){
+    &::after{
+      content:"";
+      display:block;
+      position:absolute;
+      top:2.5px;
+      left:calc(50%);
+      width:100%;
+      height:2px;
+      background-color: var(--gray);
+      // animation: nextStep 1s;
+      // animation-fill-mode: forwards;
+    }
+  }
+  &[aria-current="step"]{
+    &::before{
+      background-color: rgb(var(--primary));
+      box-shadow: 0px 0px 1px 0px var(--black);
+      animation: pulse 2s infinite;
+    }
+  }
+  &:has(~ .c-step-item[aria-current="step"]) {
+    &::before{
+      background-color: rgb(var(--primary));
+    }
+    &::after{
+      background-color: rgb(var(--primary));
+    }
+  }
+  &:last-child[aria-current="step"]{
+    &::before{
+      background-color: rgb(var(--primary));
+      box-shadow: 0 0 0 4px rgba(var(--primary), .3);
+      animation: none;
+    }
+  }
+  &.is-fail:last-child[aria-current="step"]{
+    &::before{
+      background-color: rgb(var(--error-rgb-color));
+      box-shadow: 0 0 0 4px rgba(var(--error-rgb-color), .3);
+      animation: none;
+    }
+  }
+}
+
+// Animations --------------------------------------
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--primary), 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(var(--primary), 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--primary), 0);
+  }
+}
+
+@keyframes nextStep {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}

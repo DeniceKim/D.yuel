@@ -1,0 +1,100 @@
+@use './../common/variable' as vars;
+@use './../common/mixin' as mixin;
+@use 'sass:map';
+@use 'sass:color';
+@use 'sass:list';
+
+// Accordian
+.c-accordion {
+  --c-acc-bezier: cubic-bezier(.4, 0, .2, 1);
+
+  display: flex;
+  flex-direction: column;
+  width:100%;
+  // 멀티 유형
+  &.multi{
+
+  }
+}
+.acc-btn{
+  display:block;
+  position:absolute;
+  top:0;
+  right:0;
+  z-index:1;
+  width:100%;
+  height:100%;
+}
+.c-acc-title{
+  position:relative;
+  width:100%;
+  padding: .5rem;
+  padding-right: 40px;
+  word-break: break-all;
+  .text{
+    display:inline-block;
+    font-weight:600;
+    word-break: break-all;
+  }
+}
+.c-acc-header{
+  overflow:hidden;
+  position:relative;
+  border-radius: .5rem;
+  border:1px solid var(--silver);
+  &:has(.acc-btn[aria-expanded="true"]){
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-color:rgb(var(--primary));
+    background-color:rgb(var(--primary));
+    color:var(--white);
+  }
+  // 서브 아코디언이 있을 경우
+  &:has(+ .c-acc-body > .c-accordion-sub){
+    border-radius: .5rem;
+  }
+}
+.c-acc-body{
+  overflow:hidden;
+  display:none;
+  position:relative;
+  width:100%;
+}
+.c-acc-item{
+  position:relative;
+  width:100%;
+  ~ .c-acc-item{
+    margin-top:.5rem;
+  }
+  &.is-show{
+    > .c-acc-body{
+      display: block;
+    }
+  }
+}
+// sub accordion
+.c-accordion-sub{
+  padding: .5rem;
+  .acc-btn{
+    &[aria-expanded="true"]{
+      &::before{
+        background-color: var(--black);
+      }
+    }
+  }
+  .c-acc-header{
+    &:has(.acc-btn[aria-expanded="true"]){
+      border-radius:.5rem;
+      border-color:rgb(var(--primary));
+      background-color:var(--white);
+      color:var(--black);
+    }
+  }
+  .c-acc-item{
+    &.is-show{
+      > .c-acc-body{
+        display: block;
+      }
+    }
+  }
+}

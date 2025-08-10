@@ -1,0 +1,314 @@
+@use './../common/variable' as vars;
+@use './../common/mixin' as mixin;
+@use 'sass:map';
+@use 'sass:color';
+@use 'sass:list';
+
+.c-checktype {
+  --cchk-bezier: cubic-bezier(0.4, 0, 0.2, 1);
+  --cchk-gap: .625rem;
+  --cchk-height: 1.25rem;
+  --cchk-height-xxl: 2rem;
+  --cchk-height-xl: 1.75rem;
+  --cchk-padding-vertical: calc((var(--cchk-height) - 1.5 * var(--cchk-font-size)) / 2);
+  --cchk-padding-vertical-xxl: calc((var(--cchk-height-xxl) - 1.5 * var(--cchk-font-size-xxl)) / 2);
+  --cchk-padding-vertical-xl: calc((var(--cchk-height-xl) - 1.5 * var(--cchk-font-size-xl)) / 2);
+  --cchk-padding: 0.5rem;
+  --cchk-padding-left: 0.5rem;
+  --cchk-padding-right: 0.5rem;
+  --cchk-border-color: var(--lightgray);
+  --cchk-border-radius: 0.1875rem;
+  --cchk-focus-border-color: var(--black);
+  --cchk-box-shadow-focus: 0 0 0 2px rgba(var(--primary), 0.2);
+  --cchk-bg-color: rgba(255, 255, 255, 1);
+  --cchk-font-size: 0.875rem;
+  --cchk-font-size-xxl: 1.125rem;
+  --cchk-font-size-xl: 1rem;
+  --cchk-font-weight: 400;
+  --cchk-caret-color-error: #d03050;
+
+  // switch
+  --cchk-switch-button-radius: 3px;
+  --cchk-switch-button-box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.3), inset 0 0 1px 0 rgba(0, 0, 0, 0.05);
+  --cchk-switch-button-color: #FFF;
+  --cchk-switch-opacity-disabled: 0.5;
+  --cchk-switch-rail-radius: 3px;
+  --cchk-switch-rail-color: rgba(0, 0, 0, .14);
+  --cchk-switch-rail-color-active: rgb(var(--primary));
+  --cchk-switch-box-shadow-focus: 0 0 0 2px rgba(var(--primary), 0.2);
+
+  // switch size
+  --cchk-switch-button-width: var(--switch-wh);
+  --cchk-switch-button-width-pressed: var(--switch-w-pressed);
+  --cchk-switch-button-height: var(--switch-wh);
+  --cchk-switch-height: max(var(--switch-h), var(--switch-wh));
+  --cchk-switch-offset: calc((var(--switch-h) - var(--switch-wh)) / 2);
+  --cchk-switch-rail-height: var(--switch-h);
+  --cchk-switch-rail-width: var(--switch-rail-size);
+  --cchk-switch-width: max(40px, calc(var(--switch-rail-size) + var(--switch-wh) - var(--switch-h)));
+
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  .c-label{
+    min-width:auto;
+    &::after{
+      content:attr(aria-label);
+      margin-left:var(--space);
+      min-width:0;
+    }
+  }
+  .icon{
+    display:inline-block;
+    width: var(--cchk-height);
+    height: var(--cchk-height);
+    border:1px solid var(--black);
+    background-color:transparent;
+    &::before{
+      content:"";
+      display:inline-block;
+      width: calc(var(--cchk-height) - 2px);
+      height: calc(var(--cchk-height) - 2px);
+      transition: background-color .2s ease-in;
+    }
+  }
+  // 사이즈
+  &.xl{
+    &.switch{
+      --switch-wh: 22px;
+      --switch-h: 26px;
+      --switch-w-pressed: 28px;
+      --switch-rail-size: 48px;
+    }
+  }
+  &.xs{
+    &.switch{
+      --switch-wh: 14px;
+      --switch-h: 18px;
+      --switch-w-pressed: 20px;
+      --switch-rail-size: 32px;
+    }
+  }
+  // 텍스트 방향
+  &.before{
+    .c-label{
+      &::before{
+        content:attr(aria-label);
+        margin-right:var(--space);
+      }
+      &::after{
+        display:none;
+      }
+    }
+  }
+  // 상태
+  &.error{
+  }
+  // 형태
+  &.circle{
+    .icon{
+      border-radius:50%;
+    }
+  }
+  // 버튼 타입
+  &.button{
+    padding:0;
+    background-color:transparent;
+    .c-check{
+      &:disabled{
+        ~.c-label{
+          background-color: var(--lightgray);
+          color:var(--gray);
+          .icon{
+            background-color:transparent;
+            &::before{
+              background-color:transparent;
+            }
+          }
+        }
+      }
+      &:checked{
+        ~.c-label{
+          box-shadow:0 0 4px rgb(var(--primary));
+          .icon{
+            background-color:transparent;
+            box-shadow:none;
+            &::before{
+              background-color:var(--white);
+            }
+          }
+        }
+        &:disabled{
+          ~.c-label{
+            box-shadow:0 0 4px var(--silver);
+          }
+        }
+      }
+    }
+    .c-label{
+      margin:0;
+      padding:var(--cchk-padding);
+      background-color:rgb(var(--primary));
+      color:var(--white);
+      cursor: pointer;
+      &::after{
+        margin:0;
+      }
+    }
+    .icon{
+      position:absolute;top:-4px;right:-2px;left:auto;
+      width:1.125rem;height:1.125rem;
+      border:0;
+      border-radius: 50%;
+      background-color:transparent;
+      &::before{
+        background-color:transparent;
+      }
+    }
+  }
+  // 버튼 타입 outline
+  &.outline{
+    .c-check{
+      &:disabled{
+        ~.c-label{
+          border-color: var(--lightgray);
+        }
+      }
+      &:checked{
+        ~.c-label{
+          border-color:rgb(var(--primary));
+        }
+      }
+    }
+    .c-label{
+      border:1px solid var(--black);
+      background-color:var(--white);
+      color:var(--black);
+    }
+    .icon{
+      display:none;
+    }
+  }
+  // switch
+  &.switch{
+    --switch-wh: 18px;
+    --switch-h: 22px;
+    --switch-w-pressed: 24px;
+    --switch-rail-size: 40px;
+    .c-label{
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-width: var(--cchk-switch-width);
+      height: var(--cchk-switch-height);
+      vertical-align: middle;
+    }
+    .c-switch-rail{
+      overflow: hidden;
+      display:inline-block;
+      position: relative;
+      min-width: var(--cchk-switch-width);
+      height: var(--cchk-switch-height);
+      // border-radius: var(--cchk-switch-rail-radius);
+      border-radius: calc(var(--cchk-switch-height) / 2);
+      background-color: var(--cchk-switch-rail-color);
+      transition: opacity .3s var(--cchk-bezier), background .3s var(--cchk-bezier), box-shadow .3s var(--cchk-bezier);
+    }
+    .c-switch-button{
+      content: "";
+      display:inline-block;
+      position: absolute;
+      top: var(--cchk-switch-offset);
+      left: var(--cchk-switch-offset);
+      width: var(--cchk-switch-button-width-pressed);
+      height: var(--cchk-switch-button-height);
+      max-width: var(--cchk-switch-button-width);
+      border-radius: calc(var(--cchk-switch-height) / 2);
+      background-color: var(--cchk-switch-button-color);
+      box-shadow: var(--cchk-switch-button-box-shadow);
+      transition: background-color .3s var(--cchk-bezier), left .3s var(--cchk-bezier), opacity .3s var(--cchk-bezier), max-width .3s var(--cchk-bezier), box-shadow .3s var(--cchk-bezier);
+    }
+    .c-check{
+      &:focus{
+        ~.c-label{
+          .c-switch-rail {
+            box-shadow: var(--cchk-box-shadow-focus);
+          }
+        }
+      }
+      &:checked{ 
+        ~ .c-label{
+          .c-switch-rail {
+            background-color: var(--cchk-switch-rail-color-active);
+          }
+          .c-switch-button{
+            left: calc(100% - var(--cchk-switch-button-width) - var(--cchk-switch-offset));
+          }
+        }
+      }
+      &:disabled{
+        ~ .c-label{
+          .c-switch-rail {
+            opacity:.5;
+          }
+        }
+      }
+    }
+  }
+  // 세로방향
+  &.vertical{
+    width:100%;
+  }
+  // 50%
+  &.half{
+    width:calc((100% / 2) - var(--cchk-gap));
+  }
+  // 3등분
+  &.thirds{
+    width:calc((100% / 3) - (var(--cchk-gap))*2);
+  }
+}
+.c-check{
+  position:absolute;top:0;left:0;z-index:-1;
+  width: 100%;
+  height: 100%;
+  border:0;
+  border-radius:0;
+  background-color: transparent;
+  &:disabled{
+    ~.c-label{
+      color:var(--gray);
+      .icon{
+        border-color:var(--lightgray);
+        background-color:var(--lightgray);
+        &::before{
+          background-color:transparent;
+        }
+      }
+    }
+  }
+  &:checked{
+    ~.c-label{
+      .icon{
+        border-color:rgb(var(--primary));
+        background-color:rgb(var(--primary));
+        box-shadow:0 0 2px rgb(var(--primary));
+        &::before{
+          background-color:var(--white);
+        }
+      }
+    }
+    &:disabled{
+      ~.c-label{
+        .icon{
+          border-color:var(--lightgray);
+          background-color:var(--lightgray);
+          box-shadow:0 0 2px var(--lightgray);
+          &::before{
+            background-color:var(--white);
+          }
+        }
+      }
+    }
+  }
+}

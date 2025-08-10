@@ -1,0 +1,117 @@
+@charset "UTF-8";
+
+// url
+$imgPath: '/images/' !default;
+
+// font-family
+$font-family: 'Pretendard', 'Roboto', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'droid sans fallback', "Apple SD Gothic Neo", AppleGothic, sans-serif, Dotum, Tahoma, Verdana, Arial !default;
+$font-noto: 'Roboto', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'droid sans fallback', "Apple SD Gothic Neo", AppleGothic, sans-serif, Dotum, Tahoma, Verdana, Arial !default;
+
+// 기본 폰트 크기
+$font-size-base: 16px !default;
+
+// 폰트 굵기
+$light:300 !default;
+$regular:400 !default;
+$medium:500 !default;
+$semibold:600 !default;
+$bold:700 !default;
+$extra:800 !default;
+
+// 폰트 크기 변수 font-size: map-get($font-sizes, 14);
+$font-sizes: (
+  10: 0.625rem,
+  11: 0.6875rem,
+  12: 0.75rem,
+  13: 0.8125rem,
+  14: 0.875rem,
+  15: 0.9375rem,
+  16: 1rem,
+  17: 1.0625rem,
+  18: 1.125rem,
+  19: 1.1875rem,
+  20: 1.25rem,
+  21: 1.3125rem,
+  22: 1.375rem,
+  23: 1.4375rem,
+  24: 1.5rem,
+  25: 1.5625rem,
+  26: 1.625rem,
+  27: 1.6875rem,
+  28: 1.75rem,
+  29: 1.8125rem,
+  30: 1.875rem,
+  31: 1.9375rem,
+  32: 2rem,
+  33: 2.0625rem,
+  34: 2.125rem,
+  35: 2.1875rem,
+  36: 2.25rem
+) !default;
+
+
+$fs10: .625rem !default;
+$fs11: .6875rem !default;
+$fs12: .75rem !default;
+$fs13: .8125rem !default;
+$fs14: .875rem !default;
+$fs15: .9375rem !default;
+$fs16: 1rem !default;
+$fs17: 1.0625rem !default;
+$fs18: 1.125rem !default;
+$fs19: 1.1875rem !default;
+$fs20: 1.25rem !default;
+$fs21: 1.3125rem !default;
+$fs22: 1.375rem !default;
+$fs23: 1.4375rem !default;
+$fs24: 1.5rem !default;
+$fs25: 1.5625rem !default;
+$fs26: 1.625rem !default;
+$fs27: 1.6875rem !default;
+$fs28: 1.75rem !default;
+$fs29: 1.8125rem !default;
+$fs30: 1.875rem !default;
+$fs31: 1.9375rem !default;
+$fs32: 2rem !default;
+$fs33: 2.0625rem !default;
+$fs34: 2.125rem !default;
+$fs35: 2.1875rem !default;
+$fs36: 2.25rem !default;
+
+// 주요 색상
+$primary: rgb(var(--primary)) !default;
+$secondary: rgb(var(--secondary)) !default;
+$tertiary: rgb(var(--tertiary)) !default;
+
+$primary-opacity-40: var(--primary-op4) !default;
+$primary-opacity-80: var(--primary-op8) !default;
+
+$primary-op4:var(--primary-op4) !default;
+$primary-op8:var(--primary-op8) !default;
+
+// 고정 색상
+$black:var(--black);
+$gray:var(--gray);
+
+// 둥근 모서리 설정
+$radius:.75rem !default;
+$radius16:1rem !default;
+$radius-default: 0.75rem !default;
+$radius-lg: 1rem !default;
+$radius-circle: 50% !default;
+$radius-square: 0.375rem !default;
+
+// 레이아웃
+$header-height: 3.5rem !default;
+$main-padding-bottom: 4rem !default;
+$btm-group-height: 3.5rem !default;
+
+// 여백 및 패딩
+$margin-negative: 0 !default;
+$padding-base: 1rem !default;
+
+// Define a map of theme colors
+$themes: (
+  //기본 #3769f4, #009F24, #F79B06
+  default: (55, 105, 244, 0, 159, 36, 247, 155, 6),
+);

@@ -1,0 +1,114 @@
+@use './../common/variable' as vars;
+@use './../common/mixin' as mixin;
+@use 'sass:map';
+@use 'sass:color';
+@use 'sass:list';
+
+// Tag
+.c-tag {
+  --ctag-bezier: cubic-bezier(.4, 0, .2, 1);
+  --ctag-height: 26px;
+  --ctag-height-xxs: 20px;
+  --ctag-height-xs: 24px;
+  --ctag-height-xl: 32px;
+  --ctag-height-xxl: 40px;
+  --ctag-padding: 4px;
+  --ctag-padding-xxs: 2px;
+  --ctag-padding-xs: 2px;
+  --ctag-padding-xl: 6px;
+  --ctag-padding-xxl: 8px;
+  --ctag-padding-x: 8px;
+  --ctag-border-radius: 2px;
+  --ctag-border-color: var(--lightgray);
+  --ctag-color: var(--black);
+  --ctag-font-size: .875rem;
+  --ctag-font-size-xxs: .75rem;
+  --ctag-font-size-xxl: 1rem;
+
+  overflow:hidden;
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  position:relative;
+  width: auto;
+  min-width: 0;
+  max-width: 100%;
+  min-height: var(--ctag-height);
+  padding:var(--ctag-padding) var(--ctag-padding-x);
+  border-radius:var(--ctag-border-radius);
+  border: 1px solid var(--ctag-border-color);
+  font-size: var(--ctag-font-size);
+  line-height:1.15;
+  white-space: nowrap;
+  transition: border-color .3s var(--ctag-bezier), background-color .3s var(--ctag-bezier), color .3s var(--ctag-bezier), box-shadow .3s var(--ctag-bezier), opacity .3s var(--ctag-bezier);
+  .text{
+    display:inline-block;
+    max-width:100%;
+    @include mixin.textClip;
+  }
+  // 형태
+  &.round{
+    border-radius: var(--ctag-height);
+  }
+  &.fill{
+    border-color: rgb(var(--primary));
+    background-color: rgb(var(--primary));
+    color: var(--white);
+  }
+  // 사이즈
+  &.xxs{
+    height: var(--ctag-height-xxs);
+    min-height: var(--ctag-height-xxs);
+    font-size: var(--ctag-font-size-xxs);
+  }
+  &.xs{
+    height: var(--ctag-height-xs);
+  }
+  &.xl{
+    height: var(--ctag-height-xl);
+  }
+  &.xxl{
+    height: var(--ctag-height-xxl);
+    font-size: var(--ctag-font-size-xxl);
+  }
+  // 상태
+  &.success{
+    border-color:var(--success);
+    &.fill{
+      background-color:var(--success);
+    }
+  }
+  &.error{
+    border-color:var(--error);
+    &.fill{
+      background-color:var(--error);
+    }
+  }
+  &.warning{
+
+  }
+  &.info{
+
+  }
+  &.tag_btn{
+    --c-toast-btn-size: 20px;
+
+    border-color: var(--lightgray);
+    background-color: var(--lightgray);
+    color: var(--black);
+    font-size: var(--num-13);
+    .text{
+      height: 20px; line-height: 20px;
+    }
+    .toast-btn{
+      width: var(--c-toast-btn-size);
+      height: var(--c-toast-btn-size);
+      margin-left: 0.25rem;
+      background-repeat: no-repeat;
+      background-size: var(--c-toast-btn-size);
+      background-position: 50%;
+      background-color: var(--black);
+      mask-size: calc(var(--c-toast-btn-size) / 1.5);
+    }
+  }
+}
