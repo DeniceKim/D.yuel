@@ -222,11 +222,11 @@ pnpm store prune
 rm -rf node_modules dist .vite .cache pnpm-lock.yaml && pnpm i && pnpm build
 ```
 
-npm 사용 시
+npm 사용 시    
 
-빠른 클린: `rm -rf node_modules dist .vite .cache && npm i`
-딥 클린: `rm -rf node_modules dist .vite .cache package-lock.json && npm i`
+빠른 클린: `rm -rf node_modules dist .vite .cache && npm i`    
+딥 클린: `rm -rf node_modules dist .vite .cache package-lock.json && npm i`    
 
-주의
-더 강력한 정리: git clean -xfd는 추적되지 않은 파일까지 지우므로 신중히 사용
+주의    
+더 강력한 정리: git clean -xfd는 추적되지 않은 파일까지 지우므로 신중히 사용    
 ```
