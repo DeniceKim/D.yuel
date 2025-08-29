@@ -199,21 +199,28 @@
 
 ## 클린 명령어
 
-```text
 rm -rf: node_modules/와 출력물만 삭제 후 재설치
-`rm -rf node_modules dist .vite .cache && pnpm i`
+
+```bash
+rm -rf node_modules dist .vite .cache && pnpm i
+```
 딥 클린(락파일 포함)
 
 락파일까지 제거해 의존성 트리 재해결
-`rm -rf node_modules dist .vite .cache pnpm-lock.yaml && pnpm i`
+```bash
+rm -rf node_modules dist .vite .cache pnpm-lock.yaml && pnpm i
+```
 
 스토어 정리(pnpm 전용)
 pnpm 전역 스토어의 불필요 패키지 정리
-`pnpm store prune`
+```bash
+pnpm store prune
+```
 
 전체 프로세스(한 번에)
-`rm -rf node_modules dist .vite .cache pnpm-lock.yaml && pnpm i && pnpm build`
-
+```bash
+rm -rf node_modules dist .vite .cache pnpm-lock.yaml && pnpm i && pnpm build
+```
 
 npm 사용 시
 
