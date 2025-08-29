@@ -1,9 +1,15 @@
 # VSCode json 세팅   
 
+## 설정 적용 우선순위   
+
+1.  Workspace(프로젝트) 설정 → 프로젝트/.vscode/settings.json   
+2.  User(전역) 설정 → ~/Library/Application Support/Code/User/settings.json (macOS)   
+3.  C:\Users\사용자명\AppData\Roaming\Code\User\settings.json (Windows)   
+
 ## settings.json 설정 설명   
 
-- Mac 경로 : ~/Library/Application Support/Code/User/settings.json   
-- Win 경로 : %APPDATA%/Code/User/settings.json   
+- 전역(User) Mac 경로 : ~/Library/Application Support/Code/User/settings.json   
+- 전역(User) Win 경로 : %APPDATA%\Code\User\settings.json   
 
 ```jsonc
 {
@@ -23,16 +29,22 @@
   "editor.tabSize": 2,
   "editor.minimap.enabled": false,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // (선택) 저장 시 포맷도 함께 하려면 유지
   "editor.formatOnSave": true,
 
   // ===== CSS/SCSS / Lint =====
   // CSS/SCSS에서 알 수 없는 @규칙 경고 무시 (@use, @forward 등)
   "css.lint.unknownAtRules": "ignore",
   "scss.lint.unknownAtRules": "ignore",
+  // CSS, SCSS에만 PostCSS Sorting을 저장 시 자동 실행
+  "[css]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.postcss-sorting": "always"
+    }
+  },
   "[scss]": {
     "editor.codeActionsOnSave": {
-      // 필요할 때만 명시적으로 실행
-      "source.fixAll.postcss-sorting": "explicit"
+      "source.fixAll.postcss-sorting": "always"
     }
   },
   "postcssSorting.config": {
@@ -151,13 +163,26 @@
 }
 ```
 
+아래처럼 설정도 가능.   
+
+```jsonc
+ "css.lint.unknownAtRules": "ignore",
+  "scss.lint.unknownAtRules": "ignore",
+  "[scss]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.postcss-sorting": "explicit" // 필요할 때만 명시적으로 실행(keybindings.json 에서 설정한 단축키)
+      "source.fixAll.postcss-sorting": "always" // 저장 시 Prettier가 먼저 실행. 이어서 PostCSS Sorting이 실행되어 CSS 속성 정렬까지 자동 완료. 파일 저장시 항시 정렬 (css, scss 등 모든 파일 적용)
+    }
+  },
+```
+
 ## keybindings.json   
 
 - 처음 설정하는 부분이라면 파일이 없으니 새로 파일 생성하여 작성.   
 - 기본 css 속성 선언 순서를 제어하는 단축키 설정.   
 - vscode에 PostCSS Sorting 확장 설치가 되어 있어야 함.   
-- Mac 경로 : ~/Library/Application Support/Code/User/keybindings.json   
-- Win 경로 : %APPDATA%/Code/User/keybindings.json   
+- 전역(User) Mac 경로 : ~/Library/Application Support/Code/User/keybindings.json   
+- 전역(User) Win 경로 : %APPDATA%\Code\User\keybindings.json   
 
 ```jsonc
 [
